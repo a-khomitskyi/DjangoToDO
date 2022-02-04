@@ -7,6 +7,10 @@ authors = ["a-khomitskyi <homitskiy.andriy@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.0.2"
+python-dotenv = "^0.19.2"
+psycopg2 = "^2.9.3"
+dj-database-url = "^0.5.0"
+django-bootstrap-datepicker-plus = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 
