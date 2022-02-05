@@ -1,58 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	{% for task in tasks %}
-		<div class="tab-content" id="ex1-content">
-			<div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
-				 aria-labelledby="ex1-tab-1">
-
-				<ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-					<li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-						<div class="form-check">
-							<input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked1"
-								   aria-label="..." {% if task.is_completed %}checked{% endif %}>
-						</div>
-					</li>
-					<li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-						<p class="lead fw-normal mb-0">{{ task.title }}</p>
-					</li>
-
-					{% if task.until %}
-						<li class="list-group-item px-3 py-1 d-flex align-items-center border-0 bg-transparent">
-							<div class="py-2 px-3 me-2 border border-warning rounded-3 d-flex align-items-center bg-light">
-								<p class="small mb-0">
-									<a href="#!" data-mdb-toggle="tooltip" title="Due on date">
-										<i class="fas fa-hourglass-half me-2 text-warning"></i>
-									</a>
-									{{ task.until }}
-								</p>
-							</div>
-						</li>
-					{% endif %}
-
-					<li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
-						<div class="d-flex flex-row justify-content-end mb-1">
-							<a href="#!" class="text-info" data-mdb-toggle="tooltip"
-							   title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
-							<a href="#!" class="text-danger" data-mdb-toggle="tooltip"
-							   title="Delete todo"><i class="fas fa-trash-alt"></i></a>
-						</div>
-						<div class="text-end text-muted">
-							{% if task.priority == 3 %}
-								<h6 class="mb-0"><span class="badge bg-danger">Necessary</span></h6>
-							{% elif task.priority == 2 %}
-								<h6 class="mb-0"><span class="badge bg-warning">Important</span></h6>
-							{% else %}
-								<h6 class="mb-0"><span class="badge bg-success">Routine</span></h6>
-							{% endif %}
-
-							<a class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-								<p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ task.created_at }}</p>
-							</a>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	{% endfor %}
+	<div class="accordion-header">
+		{% if request.user.is_authenticated %}
+			<p>Hi, {{ request.user }}! <a href="{% url 'logout' %}">Logout</a></p>
+		{% else %}
+			<a href="{% url 'login' %}">Login</a> | <a href="{% url 'registration' %}">Register</a>
+		{% endif %}
+	</div>
+	<div class="accordion-header">
+		<a href="{% url 'create' %}">
+			<button type="button" class="btn btn-success btn-lg btn-block">Add Task</button>
+		</a>
+	</div>
+	{% if cnt %}
+		<h2>To do {{ cnt }} tasks</h2>
+	{% else %}
+		<h2>You haven't any tasks...</h2>
+	{% endif %}
+	{% include 'app/list_task.html' %}
 {% endblock %}

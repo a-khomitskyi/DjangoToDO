@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 CHOICES = (
@@ -24,3 +25,6 @@ class Task(models.Model):
 
     class Meta:
         ordering = ('is_completed', '-priority', 'title', )
+
+    def get_absolute_url(self):
+        return reverse('task_detail', kwargs={'pk': self.pk})

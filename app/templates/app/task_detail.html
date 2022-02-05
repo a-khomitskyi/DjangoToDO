@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	<h1>View Task</h1>
+	<a href="{% url 'home' %}">Go Back</a>
+	<div>
+		<p>{{ task.title }}</p>
+		<p>{{ task.priority }}</p>
+		<p>{{ task.description }}</p>
+		<p>{{ task.is_completed }}</p>
+		<p>{{ task.until }}</p>
+		<p>{{ task.created_at }}</p>
+	</div>
+{% endblock %}

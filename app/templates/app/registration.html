@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form.non_field_errors }}
+		{% for item in form %}
+			<div class="form-outline flex-fill">
+				<label for="{{ item.id_for_label }}">{{ item.label }}</label>
+				{{ item }}
+			</div>
+		{% endfor %}
+		<div style="margin: 0 auto">
+			<button type="submit" class="btn btn-info ms-2">Registration</button>
+		</div>
+	</form>
+{% endblock %}
