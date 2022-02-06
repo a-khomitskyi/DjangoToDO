@@ -9,14 +9,22 @@
 		{% endif %}
 	</div>
 	<div class="accordion-header">
-		<a href="{% url 'create' %}">
-			<button type="button" class="btn btn-success btn-lg btn-block">Add Task</button>
-		</a>
+	<div>
+		<form method="get">
+			<label for="search-text">Search tasks:</label><br>
+			<input type="text" name="search">
+		</form><br>
+	</div>
+		<div>
+			<a href="{% url 'create' %}">
+				<button type="button" class="btn btn-success btn-lg btn-block">Add Task</button>
+			</a>
+		</div><br>
 	</div>
 	{% if cnt %}
-		<h2>To do {{ cnt }} tasks</h2>
+		<h3>You have {{ cnt }} uncompleted tasks</h3>
 	{% else %}
-		<h2>You haven't any tasks...</h2>
+		<h3>You haven't any tasks...</h3>
 	{% endif %}
 	{% include 'app/list_task.html' %}
 {% endblock %}
