@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
+{% block pagename %}
+	Registration
+{% endblock %}
+
 {% block content %}
 	<form action="" method="post">
-		{% csrf_token %}
-		{{ form.non_field_errors }}
-		{% for item in form %}
-			<div class="form-outline flex-fill">
-				<label for="{{ item.id_for_label }}">{{ item.label }}</label>
-				{{ item }}
-			</div>
-		{% endfor %}
-		<div style="margin: 0 auto">
-			<button type="submit" class="btn btn-info ms-2">Registration</button>
+		<div style="margin: 0 auto; width: max-content">
+			<form action="" method="post">
+				{% csrf_token %}
+				{{ form.non_field_errors }}
+				{% for item in form %}
+					<label for="{{ item.id_for_label }}">
+						{{ item.label }}
+					</label>
+					{{ item }}
+					<small class="text-muted">{{ item.help_text }}</small><br>
+				{% endfor %}
+				<button class="btn-success btn" type="submit" value="Login">Login</button>
+				<a href="{% url 'registration' %}">
+					<button class="btn btn-secondary" style="margin-left: 10px" type="button">Register</button>
+				</a>
+				<p class="mt-lg-3">Don't have an account? <a href="{% url 'registration' %}">Registration</a></p>
+			</form>
 		</div>
 	</form>
 {% endblock %}

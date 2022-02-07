@@ -1,30 +1,44 @@
 {% extends 'base.html' %}
 
+{% block pagename %}
+	Home
+{% endblock %}
 {% block content %}
-	<div class="accordion-header">
-		{% if request.user.is_authenticated %}
-			<p>Hi, {{ request.user }}! <a href="{% url 'logout' %}">Logout</a></p>
-		{% else %}
-			<a href="{% url 'login' %}">Login</a> | <a href="{% url 'registration' %}">Register</a>
-		{% endif %}
+	<form action="" method="get">
+		<div class="pb-2">
+			<div class="card">
+				<div class="card-body">
+					<div class="d-flex flex-row align-items-center">
+						<input type="text" name="search" class="form-control" style="margin-right: 2%"
+							   placeholder="Search task...">
+						<div>
+							<button type="submit" class="btn btn-primary">Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<hr class="my-4">
+
+	<div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
+		<p class="small mb-0 me-2 text-muted">Filter</p>
+		<select class="select">
+			<option value="1">All</option>
+			<option value="2">Completed</option>
+			<option value="3">Active</option>
+			<option value="4">Has due date</option>
+		</select>
+		<p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
+		<select class="select">
+			<option value="1">Added date</option>
+			<option value="2">Due date</option>
+		</select>
+		<a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
+				class="fas fa-sort-amount-down-alt ms-2"></i></a>
 	</div>
-	<div class="accordion-header">
-	<div>
-		<form method="get">
-			<label for="search-text">Search tasks:</label><br>
-			<input type="text" name="search">
-		</form><br>
-	</div>
-		<div>
-			<a href="{% url 'create' %}">
-				<button type="button" class="btn btn-success btn-lg btn-block">Add Task</button>
-			</a>
-		</div><br>
-	</div>
-	{% if cnt %}
-		<h3>You have {{ cnt }} uncompleted tasks</h3>
-	{% else %}
-		<h3>You haven't any tasks...</h3>
-	{% endif %}
+
 	{% include 'app/list_task.html' %}
+
 {% endblock %}

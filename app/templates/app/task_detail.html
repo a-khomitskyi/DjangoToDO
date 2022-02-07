@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-
+{% block pagename %}
+	Task {{ task.pk }}
+{% endblock %}
 {% block content %}
-	<h1>View Task</h1>
 	<a href="{% url 'home' %}">Go Back</a>
 	<div>
 		<p>{{ task.title }}</p>

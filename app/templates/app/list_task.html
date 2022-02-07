@@ -5,10 +5,18 @@
 			<p class="lead fw-normal mb-0">
 				{% if task.is_completed %}
 					<a href="{{ task.get_absolute_url }}"><s>{{ task.title }}</s></a>
-					<a href="{% url 'action' task.pk %}"><span class="badge badge-pill badge-secondary">Make uncompleted</span></a>
+					<a href="{% url 'action' task.pk %}" title="Undo">
+						<span class="badge badge-pill badge-secondary">
+							<i style='font-size:24px' class='fas'>&#xf0e2;</i>
+						</span>
+					</a>
 				{% else %}
 					<a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
-					<a href="{% url 'action' task.pk %}"><span class="badge badge-pill badge-success">Make completed</span></a>
+					<a href="{% url 'action' task.pk %}" title="Done">
+						<span class="badge badge-pill badge-success">
+							<i class="material-icons">&#xe876;</i>
+						</span>
+					</a>
 				{% endif %}
 			</p>
 		</li>
@@ -48,4 +56,5 @@
 			</div>
 		</li>
 	</ul>
+	<hr style="margin: 0 0">
 {% endfor %}

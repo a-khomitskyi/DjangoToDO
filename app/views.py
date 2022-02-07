@@ -87,7 +87,7 @@ class UserRegister(FormView):
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
             return redirect('home')
-        return super(UserRegister, self).get(*args, **kwargs)
+        return super(UserRegister, self).get(request, *args, **kwargs)
 
 
 def action(request, pk):
