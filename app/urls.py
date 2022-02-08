@@ -14,4 +14,5 @@ urlpatterns = [
     path('action/<int:pk>', action, name='action'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
+    path('drop-completed/', drop_all_completed, name='drop'),
 ]

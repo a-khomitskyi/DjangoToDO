@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import login
 
 from .models import Task
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserLoginForm, TaskCreateForm
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -14,10 +14,15 @@ class HomeView(LoginRequiredMixin, ListView):
     template_name = 'app/index.html'
     model = Task
 
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(user=self.request.user)
+        return queryset
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
         context['cnt'] = context['tasks'].filter(is_completed=False).count()
+        context['completed'] = context['tasks'].filter(is_completed=True).count()
         search_input = self.request.GET.get('search') or ''
 
         if search_input:
@@ -41,7 +46,7 @@ class TaskDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-    fields = ('title', 'description', 'priority', 'until',)
+    form_class = TaskCreateForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -50,7 +55,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
-    fields = ('title', 'description', 'priority', 'until',)
+    form_class = TaskCreateForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -100,7 +105,20 @@ def action(request, pk):
     return redirect(reverse_lazy('home'))
 
 
+def drop_all_completed(request):
+    """Method has to drop all the completed tasks by user"""
+    if request.method == 'POST':
+        to_delete = Task.objects.filter(user=request.user).filter(is_completed=True)
+        if to_delete:
+            to_delete.delete()
+        return redirect(reverse_lazy('home'))
+    to_delete = Task.objects.filter(user=request.user).filter(is_completed=True).count()
+    task = {'title': f'{to_delete} tasks'}
+    return render(request, 'app/task_delete.html', {'task': task})
+
+
 class UserLoginView(LoginView):
+    form_class = UserLoginForm
     template_name = 'app/login.html'
     fields = '__all__'
     redirect_authenticated_user = True

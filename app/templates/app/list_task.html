@@ -4,18 +4,18 @@
 		<li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
 			<p class="lead fw-normal mb-0">
 				{% if task.is_completed %}
-					<a href="{{ task.get_absolute_url }}"><s>{{ task.title }}</s></a>
 					<a href="{% url 'action' task.pk %}" title="Undo">
-						<span class="badge badge-pill badge-secondary">
+					<span class="badge badge-pill badge-secondary">
 							<i style='font-size:24px' class='fas'>&#xf0e2;</i>
 						</span>
 					</a>
+					<a href="{{ task.get_absolute_url }}"><s>{{ task.title }}</s></a>
 				{% else %}
-					<a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
 					<a href="{% url 'action' task.pk %}" title="Done">
-						<span class="badge badge-pill badge-success">
+					<span class="badge badge-pill badge-success">
 							<i class="material-icons">&#xe876;</i>
 						</span>
+						<a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
 					</a>
 				{% endif %}
 			</p>

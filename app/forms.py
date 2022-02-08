@@ -1,12 +1,11 @@
 from django import forms
-from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import password_validators_help_text_html
-from django.db import models
+
 import re
+from app.models import Task
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -34,4 +33,30 @@ class UserRegistrationForm(UserCreationForm):
         if not re.match(pattern, email):
             raise ValidationError("Not valid e-mail address")
         return email
-    
+
+
+class UserLoginForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class TaskCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(TaskCreateForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+        self.fields['until'].widget = DateInput()
+        self.fields['until'].widget.attrs = {'class': 'form-control datetimepicker-input',
+                                             'data-target': '#datetimepicker1'}
+
+    class Meta:
+        model = Task
+        fields = ('title', 'description', 'priority', 'until',)

@@ -17,11 +17,8 @@
 					{{ item }}
 					<small class="text-muted">{{ item.help_text }}</small><br>
 				{% endfor %}
-				<button class="btn-success btn" type="submit" value="Login">Login</button>
-				<a href="{% url 'registration' %}">
-					<button class="btn btn-secondary" style="margin-left: 10px" type="button">Register</button>
-				</a>
-				<p class="mt-lg-3">Don't have an account? <a href="{% url 'registration' %}">Registration</a></p>
+				<button class="btn-success btn" type="submit" value="Login">Register</button>
+				<p class="mt-lg-3">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
 			</form>
 		</div>
 	</form>

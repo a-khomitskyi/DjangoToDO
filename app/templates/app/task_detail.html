@@ -4,13 +4,49 @@
 	Task {{ task.pk }}
 {% endblock %}
 {% block content %}
-	<a href="{% url 'home' %}">Go Back</a>
-	<div>
-		<p>{{ task.title }}</p>
-		<p>{{ task.priority }}</p>
-		<p>{{ task.description }}</p>
-		<p>{{ task.is_completed }}</p>
-		<p>{{ task.until }}</p>
-		<p>{{ task.created_at }}</p>
+	<a href="{% url 'home' %}" style="margin-left: 24px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+			 viewBox="0 0 16 16">
+			<path fill-rule="evenodd"
+				  d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+			<path fill-rule="evenodd"
+				  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+		</svg>
+		Go Back
+	</a>
+	<br><br>
+
+	<div {% if task.is_completed %}class="text-muted"{% endif %} style="margin-left: 24px;">
+		<h5>{{ task.title }}
+			<small class="text-muted">
+				{% if task.is_completed %}
+					<span class="alert-success">Completed</span>
+				{% else %}
+					<span class="alert-secondary">In progress</span>
+				{% endif %}
+			</small>
+		</h5>
+
+		{% if task.priority == 3 %}
+			<h6 class="mb-0"><span class="badge bg-danger">Necessary</span></h6>
+		{% elif task.priority == 2 %}
+			<h6 class="mb-0"><span class="badge bg-warning">Important</span></h6>
+		{% else %}
+			<h6 class="mb-0"><span class="badge bg-success">Routine</span></h6>
+		{% endif %}
+
+		<p class="mt-2 mb-0">{{ task.description }}</p>
+
+		{% if task.until %}
+			<p>{{ task.until }}</p>
+			<div class="py-2 px-3 border border-warning text-center rounded-3 bg-light" style="width: 140px">
+				<p class="small mb-0">
+					<a data-mdb-toggle="tooltip" title="Due on date">
+						<i class="fas fa-hourglass-half me-2 text-warning"></i>
+					</a>
+					{{ task.until }}
+				</p>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}
