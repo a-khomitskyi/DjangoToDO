@@ -24,7 +24,7 @@ class Task(models.Model):
         return self.title
 
     class Meta:
-        ordering = ('is_completed', '-priority', 'title', )
+        ordering = ('is_completed', 'until', '-priority', 'title', )
 
     def get_absolute_url(self):
         return reverse('task_detail', kwargs={'pk': self.pk})

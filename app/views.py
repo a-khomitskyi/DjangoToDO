@@ -10,26 +10,33 @@ from .forms import UserRegistrationForm, UserLoginForm, TaskCreateForm
 
 
 class HomeView(LoginRequiredMixin, ListView):
+    model = Task
     context_object_name = 'tasks'
     template_name = 'app/index.html'
-    model = Task
-
-    def get_queryset(self):
-        queryset = super().get_queryset().filter(user=self.request.user)
-        return queryset
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user=self.request.user)
-        context['cnt'] = context['tasks'].filter(is_completed=False).count()
-        context['completed'] = context['tasks'].filter(is_completed=True).count()
-        search_input = self.request.GET.get('search') or ''
-
-        if search_input:
-            context['tasks'] = context['tasks'].filter(title__icontains=search_input) or context['tasks'].filter(
-                description__icontains=search_input)
+        context['completed'] = Task.objects.filter(user=self.request.user).filter(is_completed=False).count() or 0
 
         return context
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+
+class TaskSearchView(HomeView):
+    template_name = 'app/search_task.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('search')
+        return context
+
+    def get_queryset(self):
+        search_input = self.request.GET.get('search')
+        return Task.objects.filter(user=self.request.user).filter(title__icontains=search_input) | Task.objects.filter(
+            user=self.request.user).filter(description__icontains=search_input)
 
 
 class TaskDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):

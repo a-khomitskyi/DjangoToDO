@@ -15,4 +15,5 @@ urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('drop-completed/', drop_all_completed, name='drop'),
+    path('results/', TaskSearchView.as_view(), name='search'),
 ]

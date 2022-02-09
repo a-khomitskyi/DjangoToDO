@@ -14,7 +14,20 @@
 		</svg>
 		Go Back
 	</a>
-	<br><br>
+
+	<div class="d-flex flex-row justify-content-end mb-1">
+		<a href="{% url 'action' task.pk %}" class="text-info" data-mdb-toggle="tooltip"
+				{% if task.is_completed %}
+		   title="Make uncompleted"><i class="fas fa-redo-alt me-3">
+				{% else %}
+					title="Make completed"><i class="fas fa-check me-3">
+				{% endif %}
+		</i></a>
+		<a href="{% url 'update' task.pk %}" class="text-info" data-mdb-toggle="tooltip"
+		   title="Edit todo"><i class="fas fa-pencil-alt me-3"></i></a>
+		<a href="{% url 'delete' task.pk %}" class="text-danger" data-mdb-toggle="tooltip"
+		   title="Delete todo"><i class="fas fa-trash-alt"></i></a>
+	</div>
 
 	<div {% if task.is_completed %}class="text-muted"{% endif %} style="margin-left: 24px;">
 		<h5>{{ task.title }}
@@ -38,7 +51,6 @@
 		<p class="mt-2 mb-0">{{ task.description }}</p>
 
 		{% if task.until %}
-			<p>{{ task.until }}</p>
 			<div class="py-2 px-3 border border-warning text-center rounded-3 bg-light" style="width: 140px">
 				<p class="small mb-0">
 					<a data-mdb-toggle="tooltip" title="Due on date">
