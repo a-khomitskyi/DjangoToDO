@@ -22,14 +22,16 @@
 	</form>
 
 	<div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
-		<a href="{% url 'create' %}" style="margin-right: auto" title="Add New Task">
-			<button class="btn btn-success btn-lg text-center"><i class="fas fa-plus"></i></button>
-		</a>
-		{% if completed > 1 %}
-			<a href="{% url 'drop' %}" style="margin-right: auto" title="Remove all completed">
-				<button class="mt-1 btn btn-lg btn-outline-dark"><i class="fas fa-ban"></i></button>
+		<div style="margin-right: auto">
+			<a href="{% url 'create' %}" title="Add New Task">
+				<button class="btn btn-success btn-lg text-center"><i class="fas fa-plus"></i></button>
 			</a>
-		{% endif %}
+			{% if completed > 1 %}
+				<a href="{% url 'drop' %}" title="Remove all completed">
+					<button class="mt-1 btn btn-lg btn-outline-dark"><i class="fas fa-ban"></i></button>
+				</a>
+			{% endif %}
+		</div>
 		{% if completed %}
 			<p class="small mb-0 me-2 text-muted">
 				<u>You have {{ completed }} uncompleted task(-s)</u>
