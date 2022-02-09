@@ -8,7 +8,7 @@ from accounts.forms import UserRegistrationForm, UserLoginForm
 
 
 class UserRegister(FormView):
-    template_name = 'app/registration.html'
+    template_name = 'accounts/registration.html'
     form_class = UserRegistrationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('home')
@@ -27,7 +27,7 @@ class UserRegister(FormView):
 
 class UserLoginView(LoginView):
     form_class = UserLoginForm
-    template_name = 'app/login.html'
+    template_name = 'accounts/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
 
