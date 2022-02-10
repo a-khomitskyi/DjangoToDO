@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.messages.views import SuccessMessageMixin
 
 from accounts.forms import UserRegistrationForm, UserLoginForm, UserPasswordResetForm
+from os import getenv
 
 
 class UserRegister(SuccessMessageMixin, FormView):
@@ -43,6 +44,7 @@ class UserLogoutView(LogoutView):
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'
+    from_email = getenv('EMAIL_HOST_USER')
     form_class = UserPasswordResetForm
     email_template_name = 'accounts/password_reset_email.html'
     subject_template_name = 'accounts/password_reset_subject.txt'
