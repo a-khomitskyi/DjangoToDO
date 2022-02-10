@@ -31,6 +31,8 @@ class UserRegistrationForm(UserCreationForm):
         pattern = r'^[a-zA-Z0-9]{1}[a-zA-Z0-9_.%-+]{,63}@[a-zA-Z0-9]{1}[a-zA-Z0-9.-]{0,}\.[a-z|A-Z]{2,}]{,254}$'
         if not re.match(pattern, email):
             raise ValidationError("Not valid e-mail address")
+        elif User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
         return email
 
 
