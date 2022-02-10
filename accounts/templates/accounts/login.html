@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+	To-DO Login
+{% endblock %}
+
 {% block pagename %}
 	Login
 {% endblock %}
@@ -15,6 +19,6 @@
 			<button class="btn-success btn" type="submit" value="Login">Login</button>
 		</form>
 		<br>
-		<p>Don't have an account? <a href="{% url 'registration' %}">Registration</a></p>
+		<p>If you forgot password, try <a href="{% url 'password_reset' %}"><u>reset</u></a></p>
 	</div>
 {% endblock %}
