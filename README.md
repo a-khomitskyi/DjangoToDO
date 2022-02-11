@@ -6,22 +6,22 @@ CONTENTS
  * Recommended modules
  * Installation & Configuration
 
-#Introduction
+##Introduction
 This project is my attempt to implement the TODO application using Django technology and PostgreSQL as database. This application implements the functions of viewing, adding, marking completed/uncompleted, editing and deleting tasks. The project implements a system of user accounts and relevant access rights.
 ####You can see the result via [LINK](https://django-to-do-zhlty.ondigitalocean.app/)
 
-#Requirements
+##Requirements
 > * django==4.0.2;
 > * python >= 3.7;
 
-#Recommended modules
+##Recommended modules
 > * psycopg2==2.9.3;
 > * django-storages==1.12.3;
 > * dj-database-url;
 > * boto3==1.20.53;
 > * python-dotenv
 
-#Installation & Configuration
+##Installation & Configuration
 Before installing process, you have to be sure that Python and Git are installed on your device.
 ```shell
 ~$ mkdir temp && cd temp
