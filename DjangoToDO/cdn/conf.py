@@ -11,3 +11,4 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = "https://django-todo.fra1.digitaloceanspaces.com"
 STATICFILES_STORAGE = 'DjangoToDO.cdn.backends.StaticRootS3BotoStorage'
+AWS_QUERYSTRING_AUTH = False
