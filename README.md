@@ -1,7 +1,7 @@
 CONTENTS
 ---------------------
 
- * Introduction
+ * [Introduction](Introduction)
  * Requirements
  * Recommended modules
  * Installation & Configuration
@@ -11,15 +11,15 @@ This project is my attempt to implement the TODO application using Django techno
 <h5>You can see the result via <a href="https://django-to-do-zhlty.ondigitalocean.app">LINK</a></h5>
 
 <h2>Requirements</h2>
-> * django==4.0.2;
-> * python >= 3.7;
+* django==4.0.2;
+* python >= 3.7;
 
 <h2>Recommended modules</h2>
-> * psycopg2==2.9.3;
-> * django-storages==1.12.3;
-> * dj-database-url;
-> * boto3==1.20.53;
-> * python-dotenv
+* psycopg2==2.9.3;
+* django-storages==1.12.3;
+* dj-database-url;
+* boto3==1.20.53;
+* python-dotenv
 
 <h2>Installation & Configuration</h2>
 Before installing process, you have to be sure that Python and Git are installed on your device.
