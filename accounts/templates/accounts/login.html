@@ -13,9 +13,14 @@
 		<form action="" method="post">
 			{% csrf_token %}
 			{% for item in form %}
-				<label for="{{ item.id_for_label }}">{{ item.label }}</label>
+				{% if item.id_for_label != 'id_captcha' %}
+					<label for="{{ item.id_for_label }}">{{ item.label }}</label>
+				{% else %}
+					<br>
+				{% endif %}
 				{{ item }}
 			{% endfor %}
+			<br>
 			<button class="btn-success btn" type="submit" value="Login">Login</button>
 		</form>
 		<br>

@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, SetPasswordForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
+from captcha.widgets import ReCaptchaV2Checkbox
+from captcha.fields import ReCaptchaField
 
 from django import forms
 import re
@@ -20,6 +22,7 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.EmailInput(attrs={'autocomplete': 'on'}),
         help_text='Your valid E-mail address',
     )
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     class Meta:
         model = User
@@ -42,6 +45,7 @@ class UserLoginForm(AuthenticationForm):
         super(UserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 
 class UserPasswordResetForm(PasswordResetForm):
@@ -50,6 +54,8 @@ class UserPasswordResetForm(PasswordResetForm):
         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 
 class UserSetPasswordForm(SetPasswordForm):

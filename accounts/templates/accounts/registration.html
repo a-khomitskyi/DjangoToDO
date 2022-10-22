@@ -11,8 +11,12 @@
 				{% csrf_token %}
 				{{ form.non_field_errors }}
 				{% for item in form %}
+					{% if item.id_for_label != 'id_captcha' %}
 					<label for="{{ item.id_for_label }}">
 						{{ item.label }}
+					{% else %}
+						<br>
+					{% endif %}
 					</label>
 					{{ item }}
 					<small class="text-muted">{{ item.help_text }}</small><br>
